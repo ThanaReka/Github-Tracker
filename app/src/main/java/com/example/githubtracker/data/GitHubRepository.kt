@@ -5,16 +5,18 @@ import com.example.githubtracker.model.User
 import com.example.githubtracker.network.GitHubApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-//interface GitHubRepository {
-//    suspend fun getUser(userId: String): User
-//    suspend fun getUserRepos(userId: String): List<Repo>
-//
-//}
+interface GitHubRepository {
+    suspend fun getUser(userId: String): User
+    suspend fun getUserRepos(userId: String): List<Repo>
 
-//class NetworkGitHubRepository(private val apiService: GitHubApiService): GitHubRepository{
+}
 
-    class GitHubRepository() {
+class NetworkGitHubRepository @Inject constructor() : GitHubRepository{
+
+//@Singleton
+//class GitHubRepository @Inject constructor() {
 
     private val api: GitHubApiService
 
@@ -27,14 +29,15 @@ import retrofit2.converter.gson.GsonConverterFactory
         api = retrofit.create(GitHubApiService::class.java)
     }
 
-    suspend fun getUser(userId: String): User {
+    override suspend fun getUser(userId: String): User {
         return api.getUser(userId)
     }
 
-    suspend fun getUserRepos(userId: String): List<Repo> {
+    override suspend fun getUserRepos(userId: String): List<Repo> {
         return api.getUserRepos(userId)
     }
 }
+
 
 
 

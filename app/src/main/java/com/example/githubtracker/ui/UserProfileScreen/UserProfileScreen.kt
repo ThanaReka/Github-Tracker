@@ -48,35 +48,27 @@ import coil.request.ImageRequest
 import com.example.githubtracker.R
 import com.example.githubtracker.data.GitHubRepository
 import com.example.githubtracker.model.Repo
-import com.example.githubtracker.ui.GitHubScreens
+import com.example.githubtracker.GitHubScreens
+import com.example.githubtracker.data.NetworkGitHubRepository
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserProfileScreen(
-    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = GitHubRepository())),
+    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
     modifier: Modifier = Modifier,
-    navController: NavHostController,
-
-) {
+    navController: NavHostController
+    ) {
     var userId by remember { mutableStateOf("") }
-
     val gitUiState = viewModel.gitUiState
 
-    Scaffold(
-        topBar = {
-            ScreensAppBar()
-        }
-    ) { it ->
-        Column(
+    Column(
             modifier = modifier
-                .padding(it)
                 .fillMaxWidth()
         ) {
             SearchBar(userId, onValueChange = { userId = it }, onSearchClick = { viewModel.fetchUser(userId) })
             when (gitUiState) {
                 is GitUiState.Loading -> {
-//                    LoadingScreen()
                 }
                 is GitUiState.Success -> {
                     GitReposList(viewModel, gitUiState, Modifier, navController)
@@ -86,8 +78,8 @@ fun UserProfileScreen(
                 }
             }
         }
-    }
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,27 +119,8 @@ fun SearchBar(
 }
 
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Box(
-            modifier = Modifier
-                .fillMaxSize() // Makes the Box fill the entire screen
-    ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.Center) // Centers the Column within the Box
-        ) {
-            Image(
-                modifier = Modifier.size(dimensionResource(id = R.dimen.loading_img_size)),
-                painter = painterResource(R.drawable.baseline_person_search_24),
-                contentDescription = stringResource(R.string.loading)
-            )
-        }
-    }
-}
-
-@Composable
 fun GitReposList(
-    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = GitHubRepository())),
+    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
     gitUiState: GitUiState.Success,
     modifier: Modifier = Modifier,
     navController: NavHostController,
@@ -162,7 +135,7 @@ fun GitReposList(
             ){
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(gitUiState?.user?.avatar_url ?: "Image not Available")
+                        .data(gitUiState?.user?.avatar_url )
                         .build(),
                     placeholder = painterResource(R.drawable.broken_image),
                     contentDescription = stringResource(R.string.avatar_img),
@@ -212,27 +185,6 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ScreensAppBar(
-    modifier: Modifier = Modifier
-){
-//    Surface(shadowElevation = 32.dp) {
-        TopAppBar(
-            title = {
-                Text(
-                    text = stringResource(id = R.string.app_name),
-                    color = Color.White
-                )
-            },
-            modifier = modifier
-                .shadow(elevation = 8.dp, shape = MaterialTheme.shapes.medium, clip = false),
-            colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color(0xFF3f51b5)),
-            )
-//    }
-}
-
-
 @Composable
 fun RepoItemCard(
     repo: Repo,
@@ -273,17 +225,3 @@ fun RepoItemCard(
 
 
 
-
-//@Preview(showBackground = true)
-//@Composable
-//fun GitInfoLayoutPreview(){
-//    GitInfoLayout()
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun CardPreview(){
-//    ListItemCard(
-//        GitInfoRepository.gitinfolist
-//    )
-//}

@@ -3,7 +3,5 @@
 
     <style name="Theme.GithubTracker" parent="android:Theme.Material.Light.NoActionBar" />
 
-<!--    <style name="Theme.GithubTracker" parent="android:Theme.Material.Light.DarkActionBar">-->
-<!--        <item name="android:colorPrimary">@color/purple_700</item>-->
-<!--    </style>-->
+
 </resources>

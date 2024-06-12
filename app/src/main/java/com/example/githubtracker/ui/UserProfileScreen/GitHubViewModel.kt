@@ -16,32 +16,6 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
-//class GitHubViewModel(private val repository: GitHubRepository) : ViewModel() {
-//
-//    private val _user = MutableStateFlow<User?>(null)
-//    val user: MutableStateFlow<User?> = _user
-//
-//    private val _repos = MutableStateFlow<List<Repo>?>(null)
-//    val repos: MutableStateFlow<List<Repo>?> = _repos
-//
-//    init {
-//        fetchUser("")
-//    }
-//
-//    private fun fetchUser(userId: String) {
-//        viewModelScope.launch {
-//            try {
-//                val user = repository.getUser(userId)
-//                _user.value = user
-//                val repos = repository.getUserRepos(userId)
-//                _repos.value = repos
-//            } catch (e: Exception) {
-//                (e.message.toString())
-//            }
-//        }
-//    }
-//}
-
 sealed class GitUiState {
     data class Success(val user: User, val repos: List<Repo>) : GitUiState()
     data class Error(val error: String) : GitUiState()
@@ -49,12 +23,6 @@ sealed class GitUiState {
 }
 
 class GitHubViewModel(private val gitHubRepository: GitHubRepository) : ViewModel() {
-
-//    private val _user = MutableStateFlow<User?>(null)
-//    val user: MutableStateFlow<User?> = _user
-//
-//    private val _repos = MutableStateFlow<List<Repo>?>(null)
-//    val repos: MutableStateFlow<List<Repo>?> = _repos
 
     private val _selectedRepo = MutableStateFlow<Repo?>(null)
     val selectedRepo: StateFlow<Repo?> = _selectedRepo
