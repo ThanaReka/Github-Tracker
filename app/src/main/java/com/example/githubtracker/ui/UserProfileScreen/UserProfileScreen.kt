@@ -3,6 +3,7 @@ package com.example.githubtracker.ui.UserProfileScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -54,22 +55,29 @@ fun UserProfileScreen(
     var userId by remember { mutableStateOf("") }
     val gitUiState = viewModel.gitUiState
 
-    Column(
+    Box {
+        Column(
             modifier = modifier
                 .fillMaxWidth()
         ) {
-            SearchBar(userId, onValueChange = { userId = it }, onSearchClick = { viewModel.fetchUser(userId) })
+            SearchBar(
+                userId,
+                onValueChange = { userId = it },
+                onSearchClick = { viewModel.fetchUser(userId) })
             when (gitUiState) {
                 is GitUiState.Loading -> {
                 }
+
                 is GitUiState.Success -> {
                     GitReposList(viewModel, gitUiState, Modifier, navController)
                 }
+
                 is GitUiState.Error -> {
                     ErrorScreen()
                 }
             }
         }
+    }
 }
 
 
@@ -93,6 +101,9 @@ fun SearchBar(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.small_padding)),
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = Color.Transparent,
+                cursorColor = Color.Red,
+                focusedIndicatorColor = Color.Red,
+                focusedLabelColor = Color.Red,
             )
         )
         FilledTonalButton(
@@ -127,8 +138,7 @@ fun GitReposList(
             ){
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
-//                        .data(gitUiState?.user?.avatar_url)
-                        .data(gitUiState.user.avatar_url)
+                        .data(gitUiState.user.avatarUrl)
                         .build(),
                     placeholder = painterResource(R.drawable.broken_image),
                     contentDescription = stringResource(R.string.avatar_img),
@@ -141,7 +151,6 @@ fun GitReposList(
 
                 Text(
                     text = gitUiState.user.name,
-//                    text = gitUiState?.user?.name ?: "User not found",
                     color = Color.Black
                 )
             }

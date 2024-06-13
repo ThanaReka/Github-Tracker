@@ -3,8 +3,6 @@ package com.example.githubtracker.data
 import com.example.githubtracker.model.Repo
 import com.example.githubtracker.model.User
 import com.example.githubtracker.network.GitHubApiService
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 interface GitHubRepository {

@@ -1,11 +1,17 @@
 package com.example.githubtracker.ui.DetailScreen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,6 +33,7 @@ import com.example.githubtracker.ui.UserProfileScreen.GitHubViewModel
 fun DetailScreen(
     modifier: Modifier = Modifier,
     viewModel: GitHubViewModel = hiltViewModel(),
+    navigateUp: () -> Unit,
 ) {
     val selectedRepo by viewModel.selectedRepo.collectAsState()
 
@@ -67,12 +76,12 @@ fun DetailScreen(
                 )
                 Text(
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.small_padding)),
-                    text = "Updated at: ${selectedRepo?.updated_at ?: "No date available"}",
+                    text = "Updated at: ${selectedRepo?.updatedAt ?: "No date available"}",
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.small_padding)),
-                    text = "Stargazers count: ${selectedRepo?.stargazers_count ?: "No stargazers count available"} stargazer(s)",
+                    text = "Stargazers count: ${selectedRepo?.stargazersCount ?: "No stargazers count available"} stargazer(s)",
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center
                 )
@@ -83,18 +92,31 @@ fun DetailScreen(
                     textAlign = TextAlign.Center
                 )
             }
+            Row(
+                modifier = Modifier
+                    .padding(24.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (totalForks > 5000) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_stars_24),
+                        contentDescription = null,
+                        tint = colorResource(id = R.color.gold),
+                    )
+                    Spacer(modifier = Modifier.width(2.dp))
+                }
                 Text(
-                    modifier = Modifier.padding(48.dp),
                     text = "Total Forks for user: $totalForks",
                     color = if (totalForks > 5000) Color.Red else Color.Black,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
-                )
-
-
+                    )
             }
         }
     }
+}
 
 
 

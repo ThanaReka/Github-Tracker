@@ -2,6 +2,14 @@
 <resources>
 
     <style name="Theme.GithubTracker" parent="android:Theme.Material.Light.NoActionBar" />
+<!--    <style name="Theme.GithubTracker" parent="android:Theme.Material.Light">-->
+<!--    <item name="android:colorPrimary">@color/colorPrimary</item>-->
+<!--    <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--&lt;!&ndash;    <item name="android:colorAccent">@color/color_accent</item>&ndash;&gt;-->
+<!--    <item name="android:statusBarColor">@color/colorPrimaryDark</item>-->
+
+<!--    </style>-->
 
 
 </resources>
+

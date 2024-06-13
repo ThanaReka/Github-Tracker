@@ -32,9 +32,10 @@ A 'FakeGitHubApiService' was created to mimic the behavior of the real GitHub AP
 ViewModel was tested for correctly handling a successful user data fetch and an error during user data fetch.
 * UI test: this test was run using Hilt for dependency injection setup to verify that user data is displayed correctly on the screen
 
-### Screenshots
+### Screen Shots
 
-<img src="./assets/Image1.png"> 
-<img src="./assets/Image2.png"> 
+<img src="./assets/screen_shot_1.png">
+<img src="./assets/screen_shot_2.png">
+<img src="./assets/screen_shot_3.png"> 
 
 

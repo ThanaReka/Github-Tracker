@@ -4,5 +4,8 @@
     <string name="search">SEARCH</string>
     <string name="avatar_img">Avatar Image</string>
     <string name="loading">Loading</string>
-    <string name="loading_failed">Failed to load</string>
+    <string name="loading_failed">Please enter a valid Github Username.</string>
+    <string name="back_button">Back Button</string>
+    <string name="start">Start</string>
+    <string name="detail_screen">Detail Screen</string>
 </resources>

@@ -53,6 +53,13 @@ android {
 }
 
 dependencies {
+    val hilt_version = "2.51.1"
+
+    implementation ("com.google.dagger:hilt-android:$hilt_version")
+    kapt ("com.google.dagger:hilt-android-compiler:$hilt_version")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:$hilt_version")
+    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:$hilt_version")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
@@ -84,10 +91,10 @@ dependencies {
 
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+//    // Hilt
+//    implementation("com.google.dagger:hilt-android:2.51.1")
+//    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+//    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
     // Kotlin serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
@@ -98,9 +105,9 @@ dependencies {
     // Coroutine Test Rule
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
 
-    // Hilt Testing
-    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.51.1")
-    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:2.51.1")
+//    // Hilt Testing
+//    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.51.1")
+//    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:2.51.1")
 
     }
 
