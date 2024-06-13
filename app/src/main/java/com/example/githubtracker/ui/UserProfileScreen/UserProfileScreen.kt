@@ -3,11 +3,9 @@ package com.example.githubtracker.ui.UserProfileScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,12 +18,9 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -42,15 +36,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.githubtracker.R
-import com.example.githubtracker.data.GitHubRepository
-import com.example.githubtracker.model.Repo
 import com.example.githubtracker.GitHubScreens
-import com.example.githubtracker.data.NetworkGitHubRepository
+import com.example.githubtracker.R
+import com.example.githubtracker.model.Repo
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,21 +83,21 @@ fun SearchBar(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.padding(4.dp),
+        modifier = modifier.padding(dimensionResource(id = R.dimen.smallest_padding)),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
             value = userId,
             onValueChange = onValueChange,
             label = { Text(stringResource(R.string.enter_id_label)) },
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.small_padding)),
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = Color.Transparent,
             )
         )
         FilledTonalButton(
             onClick = onSearchClick,
-            shape = RoundedCornerShape(4.dp),
+            shape = RoundedCornerShape(dimensionResource(id = R.dimen.smallest_padding)),
             colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray),
         ) {
             Text(
@@ -155,7 +146,7 @@ fun GitReposList(
                 )
             }
         }
-        LazyColumn(modifier = Modifier.padding(vertical = 4.dp),
+        LazyColumn(modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.smallest_padding)),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(gitUiState.repos) { repo ->

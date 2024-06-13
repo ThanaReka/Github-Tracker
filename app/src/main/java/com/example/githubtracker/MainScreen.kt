@@ -15,12 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.githubtracker.data.GitHubRepository
-import com.example.githubtracker.data.NetworkGitHubRepository
 import com.example.githubtracker.ui.DetailScreen.DetailScreen
 import com.example.githubtracker.ui.UserProfileScreen.GitHubViewModel
 import com.example.githubtracker.ui.UserProfileScreen.UserProfileScreen
@@ -34,7 +31,6 @@ enum class GitHubScreens(val title: String){
 @Composable
 fun MainScreen(
     viewModel: GitHubViewModel = hiltViewModel(),
-//    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
     modifier: Modifier = Modifier
 ) {
 

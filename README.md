@@ -18,22 +18,12 @@ information about a specific user.
 
 ### Architectural Pattern
 
-explain your implementation, how the layers are organized and
-interact, and what the benefits are
-
 Model-View-ViewModel (MVVM) and Repository architecture pattern were used along with Dagger Hilt for dependency injection to facilitates easier testing and maintenance.
 The model layer includes the User and Repo data models representing the data received from the GitHub API.
 The repository layer handles the actual API calls using the GitHubApiService interface.
 The ViewModel layer gets data repository and exposes it to the UI by handling API calls asynchronously.
 Finally, the View layer includes the composables rendering the UI based on the state provided by the ViewModel.
 The benefits are: separation of concerns, testability, Reusability, and Asynchronicity.
-
-
-
-
-
-
-were used in this Android development to separate logic from the UI.
 
 ## Testing
 -Automated testing used:
