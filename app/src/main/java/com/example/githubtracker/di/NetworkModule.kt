@@ -16,20 +16,28 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .build()
-    }
+//    @Singleton
+//    @Provides
+//    fun provideOkHttpClient(): OkHttpClient {
+//        return OkHttpClient.Builder()
+//            .build()
+//    }
 
-    @Singleton
+//    @Singleton
+//    @Provides
+//    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+//        return Retrofit.Builder()
+//            .baseUrl("https://api.github.com/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .client(okHttpClient)
+//            .build()
+//    }
+
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
             .build()
     }
 

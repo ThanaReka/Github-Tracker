@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -33,8 +34,7 @@ import com.example.githubtracker.ui.UserProfileScreen.GitHubViewModel
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
-    navController: NavHostController,
+    viewModel: GitHubViewModel = hiltViewModel(),
 ) {
     val selectedRepo by viewModel.selectedRepo.collectAsState()
 

@@ -13,21 +13,7 @@ interface GitHubRepository {
 
 }
 
-class NetworkGitHubRepository @Inject constructor() : GitHubRepository{
-
-//@Singleton
-//class GitHubRepository @Inject constructor() {
-
-    private val api: GitHubApiService
-
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        api = retrofit.create(GitHubApiService::class.java)
-    }
+class NetworkGitHubRepository @Inject constructor(private val api: GitHubApiService) : GitHubRepository{
 
     override suspend fun getUser(userId: String): User {
         return api.getUser(userId)

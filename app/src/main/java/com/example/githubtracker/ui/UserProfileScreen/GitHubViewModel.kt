@@ -10,11 +10,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.githubtracker.data.GitHubRepository
 import com.example.githubtracker.model.Repo
 import com.example.githubtracker.model.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 sealed class GitUiState {
     data class Success(val user: User, val repos: List<Repo>) : GitUiState()
@@ -22,7 +24,8 @@ sealed class GitUiState {
     object Loading : GitUiState()
 }
 
-class GitHubViewModel(private val gitHubRepository: GitHubRepository) : ViewModel() {
+@HiltViewModel
+class GitHubViewModel @Inject constructor(private val gitHubRepository: GitHubRepository) : ViewModel() {
 
     private val _selectedRepo = MutableStateFlow<Repo?>(null)
     val selectedRepo: StateFlow<Repo?> = _selectedRepo
@@ -39,26 +42,12 @@ class GitHubViewModel(private val gitHubRepository: GitHubRepository) : ViewMode
             gitUiState = try {
                 val user = gitHubRepository.getUser(userId)
                 val repos = gitHubRepository.getUserRepos(userId)
-                _totalForks.value = repos.sumBy { it.forks }
+                _totalForks.value = repos.sumOf { it.forks }
                 GitUiState.Success(user, repos)
             } catch (e: IOException) {
                 GitUiState.Error(e.message.toString())
             } catch (e: HttpException) {
                 GitUiState.Error(e.message.toString())
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(
-            repository: GitHubRepository
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                if (modelClass.isAssignableFrom(GitHubViewModel::class.java)) {
-                    @Suppress("UNCHECKED_CAST")
-                    return GitHubViewModel(repository) as T
-                }
-                throw IllegalArgumentException("Unknown ViewModel class")
             }
         }
     }

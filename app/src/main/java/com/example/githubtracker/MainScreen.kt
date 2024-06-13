@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,7 +33,8 @@ enum class GitHubScreens(val title: String){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
+    viewModel: GitHubViewModel = hiltViewModel(),
+//    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
     modifier: Modifier = Modifier
 ) {
 
@@ -56,7 +58,6 @@ fun MainScreen(
                     DetailScreen(
                         Modifier,
                         viewModel,
-                        navController
                     )
                 }
 

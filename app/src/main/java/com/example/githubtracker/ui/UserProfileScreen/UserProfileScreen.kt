@@ -41,6 +41,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -55,7 +56,7 @@ import com.example.githubtracker.data.NetworkGitHubRepository
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserProfileScreen(
-    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
+    viewModel: GitHubViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
     navController: NavHostController
     ) {
@@ -120,7 +121,7 @@ fun SearchBar(
 
 @Composable
 fun GitReposList(
-    viewModel: GitHubViewModel = viewModel(factory = GitHubViewModel.provideFactory(repository = NetworkGitHubRepository())),
+    viewModel: GitHubViewModel = hiltViewModel(),
     gitUiState: GitUiState.Success,
     modifier: Modifier = Modifier,
     navController: NavHostController,
@@ -135,7 +136,8 @@ fun GitReposList(
             ){
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(gitUiState?.user?.avatar_url )
+//                        .data(gitUiState?.user?.avatar_url)
+                        .data(gitUiState.user.avatar_url)
                         .build(),
                     placeholder = painterResource(R.drawable.broken_image),
                     contentDescription = stringResource(R.string.avatar_img),
@@ -147,7 +149,8 @@ fun GitReposList(
                 )
 
                 Text(
-                    text = gitUiState?.user?.name ?: "User not found",
+                    text = gitUiState.user.name,
+//                    text = gitUiState?.user?.name ?: "User not found",
                     color = Color.Black
                 )
             }
