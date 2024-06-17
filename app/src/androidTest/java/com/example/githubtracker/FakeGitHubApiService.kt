@@ -9,14 +9,14 @@ class FakeGitHubApiService : GitHubApiService {
         return User(
 
             name = "Test User",
-            avatar_url = "https://example.com/avatar.png"
+            avatarUrl = "https://example.com/avatar.png"
         )
     }
 
     override suspend fun getUserRepos(userId: String): List<Repo> {
         return listOf(
-            Repo(name = "Repo1", description = "Test Repo 1", stargazers_count = 10, forks = 5, updated_at = "2023-01-01"),
-            Repo(name = "Repo2", description = "Test Repo 2", stargazers_count = 20, forks = 15, updated_at = "2023-01-02")
+            Repo(name = "Repo1", description = "Test Repo 1", stargazersCount = 10, forks = 5, updatedAt = "2023-01-01"),
+            Repo(name = "Repo2", description = "Test Repo 2", stargazersCount = 20, forks = 15, updatedAt = "2023-01-02")
         )
     }
 }
